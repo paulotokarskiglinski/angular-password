@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="passwordForm" autocomplete="off">
+            <div class="form-row">
+                <div class="col-sm-12 col-md-6">
+                    <label for="password1">Password</label>
+                    <div class="input-group">
+                        <input id="password1" class="form-control" [type]="isVisible ? 'text' : 'password'" formControlName="password1" (input)="checkPassword()">
+                        <div class="input-group-prepend">
+                            <button class="input-group-text" id="inputGroupPrepend2" (click)="changeVisible()">
+                                <i class="material-icons">remove_red_eye</i>
+                            </button>
+                        </div>
+                    </div>
+                    <small class="form-text" [ngClass]="{'text-danger': !passwordErros.capCase, 'text-success': passwordErros.capCase}">Your password must contain capital characters</small>
+                    <small class="form-text" [ngClass]="{'text-danger': !passwordErros.lowCase, 'text-success': passwordErros.lowCase}">Your password must contain small characters</small>
+                    <small class="form-text" [ngClass]="{'text-danger': !passwordErros.numbers, 'text-success': passwordErros.numbers}">Your password must contain numbers</small>
+                    <small class="form-text" [ngClass]="{'text-danger': !passwordErros.length, 'text-success': passwordErros.length}">Your password must contain at minimum 6 characters</small>
+                    <small class="form-text" [ngClass]="{'text-danger': !passwordErros.symbols, 'text-success': passwordErros.symbols}">Your password must contain a special character</small>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="password2">Confirm your password</label>
+                    <input id="password2" class="form-control" [type]="isVisible ? 'text' : 'password'" formControlName="password2">
+                    <small class="form-text" [ngClass]="{'text-danger': passwordForm.get('password1').value !== passwordForm.get('password2').value, 'text-success': passwordForm.get('password1').value.length > 0 && passwordForm.get('password1').value === passwordForm.get('password2').value}">Both passwords must be equals</small>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success" [disabled]="!isPasswordValid()">Valid</button>
+        </form>
+    </div>
+</div>
